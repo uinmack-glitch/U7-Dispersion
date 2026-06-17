@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d&b Audiotechnik U7 Radiation Visualiser</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --panel-color: #1e1e1e;
+            --accent-color: #ff6600; /* d&b corporate orange tone */
+            --text-color: #e0e0e0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 1000px;
+        }
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 24px;
+            color: #fff;
+        }
+        h2 {
+            margin: 0;
+            font-size: 14px;
+            color: #888;
+            font-weight: 400;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            max-width: 1100px;
+            width: 100%;
+            justify-content: center;
+        }
+        @media (max-width: 850px) {
+            .container { flex-direction: column; align-items: center; }
+        }
+        .control-panel {
+            background-color: var(--panel-color);
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 260px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .panel-section {
+            margin-bottom: 20px;
+        }
+        .panel-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            background-color: #2b2b2b;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+        }
+        select:focus { border-color: var(--accent-color); }
+        .data-readout {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .data-val { color: #fff; font-weight: bold; }
+        .display-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .canvas-container {
+            background-color: var(--panel-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .canvas-title {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.6);
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: #ccc;
+            pointer-events: none;
+        }
+        canvas {
+            background-color: #050505;
+            border-radius: 4px;
+            display: block;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>d&b Audiotechnik U7 &ndash; Acoustic Dispersion Visualiser</h1>
+    <h2>Isobaric wave propagation tracking across 1/3 Octave ISO bands (31.5 Hz &ndash; 16 kHz)</h2>
+</header>
+
+<div class="container">
+    <!-- Left Hand Sidebar Configuration Controls -->
+    <div class="control-panel">
+        <div class="panel-section">
+            <h3>Select Frequency</h3>
+            <select id="freqSelect"></select>
+        </div>
+
+        <div class="panel-section">
+            <h3>U7 Physical Specs</h3>
+            <div class="data-readout">
+                <div class="data-row"><span>Type:</span><span class="data-val">2-Way Passive Point Source</span></div>
+                <div class="data-row"><span>Drivers:</span><span class="data-val">2 x 8" LF / 1.26" HF Exit</span></div>
+                <div class="data-row"><span>Nominal Dispersion:</span><span class="data-val">80° H x 55° V</span></div>
+                <div class="data-row"><span>Max SPL Peak:</span><span class="data-val">136 dB</span></div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3>Current Band Profile</h3>
+            <div class="data-readout" id="bandReadout">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Hand Interactive Canvas Systems -->
+    <div class="display-panel">
+        <div class="canvas-container">
+            <div class="canvas-title">HORIZONTAL PLANE (Top-Down View)</div>
+            <canvas id="horizCanvas" width="550" height="340"></canvas>
+        </div>
+        <div class="canvas-container">
+            <div class="canvas-title">VERTICAL PLANE (Side View)</div>
+            <canvas id="vertCanvas" width="550" height="340"></canvas>
+        </div>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background: #ff3300;"></div> 0 to -3 dB</div>
+            <div class="legend-item"><div class="legend-color" style="background: #ffaa00;"></div> -3 to -6 dB (Nominal Boundary)</div>
+            <div class="legend-item"><div class="legend-color" style="background: #00aa00;"></div> -6 to -12 dB</div>
+            <div class="legend-item"><div class="legend-color" style="background: #0044cc;"></div> -12 to -24 dB</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Canonical 1/3 Octave ISO Center Frequencies from 31.5 Hz up to 16 kHz
+    const isoBands = [
+        { freq: 31.5,  label: "31.5 Hz", hAngle: 360, vAngle: 360, char: "Omnidirectional sub-bass. Cabinet is acoustically invisible.", attenuation: -15 },
+        { freq: 40,    label: "40 Hz",    hAngle: 360, vAngle: 360, char: "Omnidirectional. Below native cut-off response (-5dB at 55Hz).", attenuation: -10 },
+        { freq: 50,    label: "50 Hz",    hAngle: 360, vAngle: 360, char: "Omnidirectional. Reaching typical low frequency floor.", attenuation: -5 },
+        { freq: 63,    label: "63 Hz",    hAngle: 330, vAngle: 340, char: "Primarily Omnidirectional; minor rear attenuation beginning.", attenuation: 0 },
+        { freq: 80,    label: "80 Hz",    hAngle: 300, vAngle: 310, char: "Slight front pooling. Bass frequencies begin matching room space.", attenuation: 0 },
+        { freq: 100,   label: "100 Hz",   hAngle: 260, vAngle: 270, char: "Transitioning out of deep sub-bass radiation balloon.", attenuation: 0 },
+        { freq: 125,   label: "125 Hz",   hAngle: 210, vAngle: 220, char: "Bipolar physical arrangement of dual 8 inch woofers begins.", attenuation: 0 },
+        { freq: 160,   label: "160 Hz",   hAngle: 180, vAngle: 190, char: "Broad forward-firing dispersion. Minimal interaction with boundaries.", attenuation: 0 },
+        { freq: 200,   label: "200 Hz",   hAngle: 150, vAngle: 160, char: "Rear-hemisphere cancellation accelerating natively.", attenuation: 0 },
+        { freq: 250,   label: "250 Hz",   hAngle: 130, vAngle: 140, char: "Controlled forward energy. Clean mid-low spectrum baseline.", attenuation: 0 },
+        { freq: 315,   label: "315 Hz",   hAngle: 115, vAngle: 125, char: "Lower midrange narrowing smoothly across the front hemisphere.", attenuation: 0 },
+        { freq: 400,   label: "400 Hz",   hAngle: 105, vAngle: 110, char: "Energy centering into physical frontal vector bounds.", attenuation: 0 },
+        { freq: 500,   label: "500 Hz",   hAngle: 95,  vAngle: 100, char: "Approaching design target limits of internal geometry components.", attenuation: 0 },
+        { freq: 630,   label: "630 Hz",   hAngle: 90,  vAngle: 88,  char: "Dual woofers show acoustical coupling narrows vertical axis.", attenuation: 0 },
+        { freq: 800,   label: "800 Hz",   hAngle: 85,  vAngle: 74,  char: "Vertical lobing narrows dynamically close to driver margins.", attenuation: 0 },
+        { freq: 1000,  label: "1 kHz",    hAngle: 80,  vAngle: 62,  char: "Nominal 80 deg horizontal matches design spec target closely.", attenuation: 0 },
+        { freq: 1250,  label: "1.25 kHz", hAngle: 80,  vAngle: 55,  char: "Crossover handoff range. Highly localized acoustic control.", attenuation: -1 },
+        { freq: 1600,  label: "1.6 kHz",  hAngle: 82,  vAngle: 52,  char: "Horn fully takes command over system directivity lines.", attenuation: 0 },
+        { freq: 2000,  label: "2 kHz",    hAngle: 80,  vAngle: 55,  char: "Perfect alignment with nominal 80 deg x 55 deg spec index.", attenuation: 0 },
+        { freq: 2500,  label: "2.5 kHz",  hAngle: 80,  vAngle: 55,  char: "CD (Constant Directivity) horn maintaining geometric target.", attenuation: 0 },
+        { freq: 3150,  label: "3.15 kHz", hAngle: 79,  vAngle: 54,  char: "High consistency dispersion profile maintained uniformly.", attenuation: 0 },
+        { freq: 4000,  label: "4 kHz",    hAngle: 80,  vAngle: 55,  char: "Extremely stable HF dispersion; high off-axis performance.", attenuation: 0 },
+        { freq: 5000,  label: "5 kHz",    hAngle: 81,  vAngle: 54,  char: "Minor secondary side-lobing artifacts present outside target window.", attenuation: 0 },
