@@ -184,6 +184,7 @@
 </div>
 
 <script>
+    <script>
     // Canonical 1/3 Octave ISO Center Frequencies from 31.5 Hz up to 16 kHz
     const isoBands = [
         { freq: 31.5,  label: "31.5 Hz", hAngle: 360, vAngle: 360, char: "Omnidirectional sub-bass. Cabinet is acoustically invisible.", attenuation: -15 },
@@ -197,15 +198,42 @@
         { freq: 200,   label: "200 Hz",   hAngle: 150, vAngle: 160, char: "Rear-hemisphere cancellation accelerating natively.", attenuation: 0 },
         { freq: 250,   label: "250 Hz",   hAngle: 130, vAngle: 140, char: "Controlled forward energy. Clean mid-low spectrum baseline.", attenuation: 0 },
         { freq: 315,   label: "315 Hz",   hAngle: 115, vAngle: 125, char: "Lower midrange narrowing smoothly across the front hemisphere.", attenuation: 0 },
-        { freq: 400,   label: "400 Hz",   hAngle: 105, vAngle: 110, char: "Energy centering into physical frontal vector bounds.", attenuation: 0 },
-        { freq: 500,   label: "500 Hz",   hAngle: 95,  vAngle: 100, char: "Approaching design target limits of internal geometry components.", attenuation: 0 },
-        { freq: 630,   label: "630 Hz",   hAngle: 90,  vAngle: 88,  char: "Dual woofers show acoustical coupling narrows vertical axis.", attenuation: 0 },
-        { freq: 800,   label: "800 Hz",   hAngle: 85,  vAngle: 74,  char: "Vertical lobing narrows dynamically close to driver margins.", attenuation: 0 },
-        { freq: 1000,  label: "1 kHz",    hAngle: 80,  vAngle: 62,  char: "Nominal 80 deg horizontal matches design spec target closely.", attenuation: 0 },
-        { freq: 1250,  label: "1.25 kHz", hAngle: 80,  vAngle: 55,  char: "Crossover handoff range. Highly localized acoustic control.", attenuation: -1 },
-        { freq: 1600,  label: "1.6 kHz",  hAngle: 82,  vAngle: 52,  char: "Horn fully takes command over system directivity lines.", attenuation: 0 },
-        { freq: 2000,  label: "2 kHz",    hAngle: 80,  vAngle: 55,  char: "Perfect alignment with nominal 80 deg x 55 deg spec index.", attenuation: 0 },
-        { freq: 2500,  label: "2.5 kHz",  hAngle: 80,  vAngle: 55,  char: "CD (Constant Directivity) horn maintaining geometric target.", attenuation: 0 },
-        { freq: 3150,  label: "3.15 kHz", hAngle: 79,  vAngle: 54,  char: "High consistency dispersion profile maintained uniformly.", attenuation: 0 },
-        { freq: 4000,  label: "4 kHz",    hAngle: 80,  vAngle: 55,  char: "Extremely stable HF dispersion; high off-axis performance.", attenuation: 0 },
-        { freq: 5000,  label: "5 kHz",    hAngle: 81,  vAngle: 54,  char: "Minor secondary side-lobing artifacts present outside target window.", attenuation: 0 },
+        { freq: 400,   label: "400 Hz",   hAngle: 105, vAngle: 110, char: "Energy centering.", attenuation: 0 } 
+    ]; // Array successfully closed here
+
+    // DOM Elements
+    const freqSelect = document.getElementById('freqSelect');
+    const bandReadout = document.getElementById('bandReadout');
+
+    // Function to populate the dropdown menu dynamically
+    function populateDropdown() {
+        isoBands.forEach((band, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = band.label;
+            freqSelect.appendChild(option);
+        });
+    }
+
+    // Function to update the readout panel text
+    function updateReadout(index) {
+        const band = isoBands[index];
+        bandReadout.innerHTML = `
+            <div class="data-row"><span>H Dispersion:</span><span class="data-val">${band.hAngle}°</span></div>
+            <div class="data-row"><span>V Dispersion:</span><span class="data-val">${band.vAngle}°</span></div>
+            <div class="data-row"><span>Relative Gain:</span><span class="data-val">${band.attenuation} dB</span></div>
+            <div style="margin-top: 10px; font-style: italic; color: #888;">${band.char}</div>
+        `;
+    }
+
+    // Event listener to react to dropdown changes
+    freqSelect.addEventListener('change', (e) => {
+        updateReadout(e.target.value);
+    });
+
+    // Run on initial page load
+    populateDropdown();
+    updateReadout(0);
+</script>
+</body>
+</html>
