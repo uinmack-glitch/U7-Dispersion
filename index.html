@@ -1,239 +1,126 @@
+Copy-ready HTML code
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>d&b Audiotechnik U7 Radiation Visualiser</title>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --panel-color: #1e1e1e;
-            --accent-color: #ff6600; /* d&b corporate orange tone */
-            --text-color: #e0e0e0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            max-width: 1000px;
-        }
-        h1 {
-            margin: 0 0 5px 0;
-            font-size: 24px;
-            color: #fff;
-        }
-        h2 {
-            margin: 0;
-            font-size: 14px;
-            color: #888;
-            font-weight: 400;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            max-width: 1100px;
-            width: 100%;
-            justify-content: center;
-        }
-        @media (max-width: 850px) {
-            .container { flex-direction: column; align-items: center; }
-        }
-        .control-panel {
-            background-color: var(--panel-color);
-            border-radius: 8px;
-            padding: 20px;
-            min-width: 260px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .panel-section {
-            margin-bottom: 20px;
-        }
-        .panel-section h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-color);
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
-        }
-        select {
-            width: 100%;
-            background-color: #2b2b2b;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            outline: none;
-        }
-        select:focus { border-color: var(--accent-color); }
-        .data-readout {
-            font-size: 13px;
-            line-height: 1.6;
-            color: #b0b0b0;
-        }
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-        .data-val { color: #fff; font-weight: bold; }
-        .display-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .canvas-container {
-            background-color: var(--panel-color);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .canvas-title {
-            position: absolute;
-            top: 20px;
-            left: 25px;
-            font-size: 12px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.6);
-            padding: 3px 8px;
-            border-radius: 3px;
-            color: #ccc;
-            pointer-events: none;
-        }
-        canvas {
-            background-color: #050505;
-            border-radius: 4px;
-            display: block;
-        }
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 11px;
-            color: #aaa;
-            margin-top: 5px;
-        }
-        .legend-item { display: flex; align-items: center; gap: 5px; }
-        .legend-color { width: 12px; height: 12px; border-radius: 2px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>d&amp;b Audiotechnik U7 Advanced Radiation Array Visualiser</title>
+  <style>
+    :root { --bg-color: #121212; --panel-color: #1e1e1e; --accent-color: #ff6600; --text-color: #e0e0e0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    header { text-align: center; margin-bottom: 20px; max-width: 1000px; }
+    h1 { margin: 0 0 5px 0; font-size: 24px; color: #fff; }
+    h2 { margin: 0; font-size: 14px; color: #888; font-weight: 400; }
+    .container { display: flex; flex-direction: row; gap: 20px; max-width: 1200px; width: 100%; justify-content: center; }
+    @media (max-width: 950px) { .container { flex-direction: column; align-items: center; } }
+    .control-panel { background-color: var(--panel-color); border-radius: 8px; padding: 20px; min-width: 280px; max-width: 320px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 15px; }
+    .panel-section { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 6px; border-left: 3px solid #333; }
+    .panel-section.active-section { border-left-color: var(--accent-color); }
+    .panel-section h3 { margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+    select { width: 100%; background-color: #2b2b2b; color: #fff; border: 1px solid #444; padding: 10px; border-radius: 4px; font-size: 14px; cursor: pointer; outline: none; }
+    .btn { width: 100%; background-color: #2b2b2b; color: #fff; border: 1px solid #444; padding: 10px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+    .btn.active-btn { background-color: var(--accent-color); border-color: var(--accent-color); color: #000; }
+    .slider-group { margin-top: 8px; }
+    .slider-group label { display: flex; justify-content: space-between; font-size: 12px; color: #aaa; margin-bottom: 4px; }
+    input[type="range"] { width: 100%; accent-color: var(--accent-color); background: #333; height: 4px; cursor: pointer; }
+    .data-readout { font-size: 13px; line-height: 1.6; color: #b0b0b0; }
+    .data-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .data-val { color: #fff; font-weight: bold; }
+    .display-panel { display: flex; flex-direction: column; gap: 15px; }
+    .canvas-container { background-color: var(--panel-color); border-radius: 8px; padding: 15px; position: relative; }
+    .canvas-title { position: absolute; top: 20px; left: 25px; font-size: 11px; font-weight: bold; background: rgba(0,0,0,0.75); padding: 3px 8px; border-radius: 3px; color: #ccc; }
+    canvas { background-color: #030303; border-radius: 4px; display: block; }
+    .legend { display: flex; justify-content: center; gap: 15px; font-size: 11px; color: #aaa; margin-top: 5px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-color { width: 12px; height: 12px; border-radius: 2px; }
+  </style>
 </head>
 <body>
-
 <header>
-    <h1>d&b Audiotechnik U7 &ndash; Acoustic Dispersion Visualiser</h1>
-    <h2>Isobaric wave propagation tracking across 1/3 Octave ISO bands (31.5 Hz &ndash; 16 kHz)</h2>
+  <h1>d&amp;b Audiotechnik U7 &ndash; Advanced Acoustic Performance Suite</h1>
+  <h2>Isobaric directivity maps, dynamic wavefront propagation, and multi-source array interference vectors</h2>
 </header>
 
 <div class="container">
-    <!-- Left Hand Sidebar Configuration Controls -->
-    <div class="control-panel">
-        <div class="panel-section">
-            <h3>Select Frequency</h3>
-            <select id="freqSelect"></select>
-        </div>
-
-        <div class="panel-section">
-            <h3>U7 Physical Specs</h3>
-            <div class="data-readout">
-                <div class="data-row"><span>Type:</span><span class="data-val">2-Way Passive Point Source</span></div>
-                <div class="data-row"><span>Drivers:</span><span class="data-val">2 x 8" LF / 1.26" HF Exit</span></div>
-                <div class="data-row"><span>Nominal Dispersion:</span><span class="data-val">80° H x 55° V</span></div>
-                <div class="data-row"><span>Max SPL Peak:</span><span class="data-val">136 dB</span></div>
-            </div>
-        </div>
-
-        <div class="panel-section">
-            <h3>Current Band Profile</h3>
-            <div class="data-readout" id="bandReadout">
-                <!-- Populated dynamically via JS -->
-            </div>
-        </div>
+  <div class="control-panel">
+    <div class="panel-section active-section"><h3>Acoustic Band</h3><select id="freqSelect"></select></div>
+    <div class="panel-section">
+      <h3>Waveguide Geometry</h3>
+      <button class="btn" id="rotateBtn"><span>🔄</span> Rotatable Horn: Standard (80x55)</button>
     </div>
-
-    <!-- Right Hand Interactive Canvas Systems -->
-    <div class="display-panel">
-        <div class="canvas-container">
-            <div class="canvas-title">HORIZONTAL PLANE (Top-Down View)</div>
-            <canvas id="horizCanvas" width="550" height="340"></canvas>
-        </div>
-        <div class="canvas-container">
-            <div class="canvas-title">VERTICAL PLANE (Side View)</div>
-            <canvas id="vertCanvas" width="550" height="340"></canvas>
-        </div>
-        <div class="legend">
-            <div class="legend-item"><div class="legend-color" style="background: #ff3300;"></div> 0 to -3 dB</div>
-            <div class="legend-item"><div class="legend-color" style="background: #ffaa00;"></div> -3 to -6 dB (Nominal Boundary)</div>
-            <div class="legend-item"><div class="legend-color" style="background: #00aa00;"></div> -6 to -12 dB</div>
-            <div class="legend-item"><div class="legend-color" style="background: #0044cc;"></div> -12 to -24 dB</div>
-        </div>
+    <div class="panel-section">
+      <h3>Deployment Configuration</h3>
+      <button class="btn active-btn" id="modeSingleBtn">Single Cabinet Setup</button>
+      <button class="btn" id="modeArrayBtn">Dual Line Array / Stack</button>
+      <div class="slider-group" id="spacingContainer" style="display:none;">
+        <label><span>Enclosure Spacing</span><span id="spacingVal">0.6 m</span></label>
+        <input type="range" id="arraySpacing" min="0.4" max="2.0" step="0.1" value="0.6">
+      </div>
     </div>
+    <div class="panel-section">
+      <h3>Time Propagation Animation</h3>
+      <button class="btn active-btn" id="wavePlayBtn"><span>⏸️</span> Pause Animation</button>
+      <div class="slider-group">
+        <label><span>Wave Propagation Velocity</span><span id="speedVal">343 m/s</span></label>
+        <input type="range" id="waveSpeed" min="1" max="5" step="0.2" value="2.6">
+      </div>
+    </div>
+    <div class="panel-section"><h3>Live Isobar Profile</h3><div class="data-readout" id="bandReadout"></div></div>
+  </div>
+
+  <div class="display-panel">
+    <div class="canvas-container"><div class="canvas-title" id="hTitle">HORIZONTAL PLANE (Top-Down View)</div><canvas id="horizCanvas" width="600" height="340"></canvas></div>
+    <div class="canvas-container"><div class="canvas-title" id="vTitle">VERTICAL PLANE (Side View)</div><canvas id="vertCanvas" width="600" height="340"></canvas></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-color" style="background: #ff3300;"></div> 0 to -3 dB</div>
+      <div class="legend-item"><div class="legend-color" style="background: #ffaa00;"></div> -3 to -6 dB</div>
+      <div class="legend-item"><div class="legend-color" style="background: #00aa00;"></div> -6 to -12 dB</div>
+      <div class="legend-item"><div class="legend-color" style="background: #0044cc;"></div> -12 to -24 dB</div>
+      <div class="legend-item" id="phaseLegend" style="display:none;"><div class="legend-color" style="background: #ffffff; opacity:0.3;"></div> Phase Wavefronts</div>
+    </div>
+  </div>
 </div>
 
 <script>
-    <script>
-    // Canonical 1/3 Octave ISO Center Frequencies from 31.5 Hz up to 16 kHz
-    const isoBands = [
-        { freq: 31.5,  label: "31.5 Hz", hAngle: 360, vAngle: 360, char: "Omnidirectional sub-bass. Cabinet is acoustically invisible.", attenuation: -15 },
-        { freq: 40,    label: "40 Hz",    hAngle: 360, vAngle: 360, char: "Omnidirectional. Below native cut-off response (-5dB at 55Hz).", attenuation: -10 },
-        { freq: 50,    label: "50 Hz",    hAngle: 360, vAngle: 360, char: "Omnidirectional. Reaching typical low frequency floor.", attenuation: -5 },
-        { freq: 63,    label: "63 Hz",    hAngle: 330, vAngle: 340, char: "Primarily Omnidirectional; minor rear attenuation beginning.", attenuation: 0 },
-        { freq: 80,    label: "80 Hz",    hAngle: 300, vAngle: 310, char: "Slight front pooling. Bass frequencies begin matching room space.", attenuation: 0 },
-        { freq: 100,   label: "100 Hz",   hAngle: 260, vAngle: 270, char: "Transitioning out of deep sub-bass radiation balloon.", attenuation: 0 },
-        { freq: 125,   label: "125 Hz",   hAngle: 210, vAngle: 220, char: "Bipolar physical arrangement of dual 8 inch woofers begins.", attenuation: 0 },
-        { freq: 160,   label: "160 Hz",   hAngle: 180, vAngle: 190, char: "Broad forward-firing dispersion. Minimal interaction with boundaries.", attenuation: 0 },
-        { freq: 200,   label: "200 Hz",   hAngle: 150, vAngle: 160, char: "Rear-hemisphere cancellation accelerating natively.", attenuation: 0 },
-        { freq: 250,   label: "250 Hz",   hAngle: 130, vAngle: 140, char: "Controlled forward energy. Clean mid-low spectrum baseline.", attenuation: 0 },
-        { freq: 315,   label: "315 Hz",   hAngle: 115, vAngle: 125, char: "Lower midrange narrowing smoothly across the front hemisphere.", attenuation: 0 },
-        { freq: 400,   label: "400 Hz",   hAngle: 105, vAngle: 110, char: "Energy centering.", attenuation: 0 } 
-    ]; // Array successfully closed here
+const rawFreqs = [31.5,40,50,63,80,100,125,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000,12500,16000];
+const isoBands = rawFreqs.map(f => {
+  let h = 80, v = 55, atten = 0, txt = "Horn loaded constant-directivity zone.";
+  if (f <= 50) { h = 360; v = 360; atten = f === 31.5 ? -15 : (f === 40 ? -10 : -5); txt = "Omnidirectional acoustic footprint."; }
+  else if (f === 63) { h = 330; v = 340; txt = "Transitioning out of sub-bass radiation balloon."; }
+  else if (f === 80) { h = 300; v = 310; txt = "Slight front pooling starting."; }
+  else if (f === 100) { h = 260; v = 270; txt = "Rear directivity cancellation active."; }
+  else if (f === 125) { h = 210; v = 220; txt = "Bipolar speaker driver arrangement spacing visible."; }
+  else if (f === 160) { h = 180; v = 190; txt = "Broad forward hemisphere firing."; }
+  else if (f === 200) { h = 150; v = 160; txt = "Mid bass directivity tightening."; }
+  else if (f === 250) { h = 130; v = 140; txt = "Clean forward energy launch."; }
+  else if (f === 315) { h = 115; v = 125; txt = "Midrange narrowing smoothly."; }
+  else if (f === 400) { h = 105; v = 110; txt = "Energy centering in forward hemisphere."; }
+  else if (f === 500) { h = 95; v = 55; txt = "Crossover transition point."; }
+  else if (f === 630) { h = 90; v = 55; txt = "Waveguide pattern control engaging."; }
+  else if (f === 800) { h = 85; v = 55; txt = "Symmetrical wavefront over structural horn."; }
+  else if (f > 4000) { h = f === 5000 ? 78 : (f === 6300 ? 75 : (f === 8000 ? 70 : (f === 10000 ? 65 : (f === 12500 ? 60 : 50)))); v = f === 5000 ? 53 : (f === 6300 ? 50 : (f === 8000 ? 48 : (f === 10000 ? 45 : (f === 12500 ? 40 : 35)))); atten = f === 10000 ? -1 : (f === 12500 ? -3 : (f === 16000 ? -6 : -0.5)); txt = "High frequency air absorption and pattern pinch."; }
+  return { freq: f, label: f >= 1000 ? (f / 1000).toFixed(1) + " kHz" : f + " Hz", hAngle: h, vAngle: v, char: txt, attenuation: atten };
+});
 
-    // DOM Elements
-    const freqSelect = document.getElementById('freqSelect');
-    const bandReadout = document.getElementById('bandReadout');
+let isHornRotated = false, currentMode = "single", isAnimating = true, waveOffset = 0;
+const freqSelect = document.getElementById("freqSelect"), bandReadout = document.getElementById("bandReadout");
+const rotateBtn = document.getElementById("rotateBtn"), modeSingleBtn = document.getElementById("modeSingleBtn"), modeArrayBtn = document.getElementById("modeArrayBtn");
+const spacingContainer = document.getElementById("spacingContainer"), arraySpacing = document.getElementById("arraySpacing"), spacingVal = document.getElementById("spacingVal");
+const wavePlayBtn = document.getElementById("wavePlayBtn"), waveSpeed = document.getElementById("waveSpeed"), speedVal = document.getElementById("speedVal");
+const hCanvas = document.getElementById("horizCanvas"), vCanvas = document.getElementById("vertCanvas"), hCtx = hCanvas.getContext("2d"), vCtx = vCanvas.getContext("2d");
 
-    // Function to populate the dropdown menu dynamically
-    function populateDropdown() {
-        isoBands.forEach((band, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.textContent = band.label;
-            freqSelect.appendChild(option);
-        });
-    }
+isoBands.forEach((band, i) => { const opt = document.createElement("option"); opt.value = i; opt.textContent = band.label; freqSelect.appendChild(opt); });
+rotateBtn.addEventListener("click", () => { isHornRotated = !isHornRotated; rotateBtn.classList.toggle("active-btn", isHornRotated); rotateBtn.innerHTML = isHornRotated ? "<span>🔄</span> Rotatable Horn: Rotated (55x80)" : "<span>🔄</span> Rotatable Horn: Standard (80x55)"; document.getElementById("hTitle").textContent = isHornRotated ? "HORIZONTAL PLANE (Rotated Side View)" : "HORIZONTAL PLANE (Top-Down View)"; document.getElementById("vTitle").textContent = isHornRotated ? "VERTICAL PLANE (Rotated Top View)" : "VERTICAL PLANE (Side View)"; });
+modeSingleBtn.addEventListener("click", () => { currentMode = "single"; modeSingleBtn.classList.add("active-btn"); modeArrayBtn.classList.remove("active-btn"); spacingContainer.style.display = "none"; document.getElementById("phaseLegend").style.display = "none"; });
+modeArrayBtn.addEventListener("click", () => { currentMode = "array"; modeArrayBtn.classList.add("active-btn"); modeSingleBtn.classList.remove("active-btn"); spacingContainer.style.display = "block"; document.getElementById("phaseLegend").style.display = "inline-flex"; });
+arraySpacing.addEventListener("input", e => { spacingVal.textContent = `${e.target.value} m`; });
+waveSpeed.addEventListener("input", e => { speedVal.textContent = `${Math.round(e.target.value * 131.9)} m/s`; });
+wavePlayBtn.addEventListener("click", () => { isAnimating = !isAnimating; wavePlayBtn.innerHTML = isAnimating ? "<span>⏸️</span> Pause Animation" : "<span>▶️</span> Play Animation"; wavePlayBtn.classList.toggle("active-btn", !isAnimating); });
 
-    // Function to update the readout panel text
-    function updateReadout(index) {
-        const band = isoBands[index];
-        bandReadout.innerHTML = `
-            <div class="data-row"><span>H Dispersion:</span><span class="data-val">${band.hAngle}°</span></div>
-            <div class="data-row"><span>V Dispersion:</span><span class="data-val">${band.vAngle}°</span></div>
-            <div class="data-row"><span>Relative Gain:</span><span class="data-val">${band.attenuation} dB</span></div>
-            <div style="margin-top: 10px; font-style: italic; color: #888;">${band.char}</div>
-        `;
-    }
-
-    // Event listener to react to dropdown changes
-    freqSelect.addEventListener('change', (e) => {
-        updateReadout(e.target.value);
-    });
-
-    // Run on initial page load
-    populateDropdown();
-    updateReadout(0);
+function getAttenuationAtAngle(angleFromCenterDeg, nominalBeamwidth) { if (nominalBeamwidth >= 360) return 0; const targetHalfAngle = nominalBeamwidth / 2, variance = Math.pow(targetHalfAngle / 1.2, 2); let atten = -12 * (Math.pow(angleFromCenterDeg, 2) / variance); if (angleFromCenterDeg > targetHalfAngle) atten -= (angleFromCenterDeg - targetHalfAngle) * 0.18; return Math.max(atten, -35); }
+function renderEngineFrame() { if (isAnimating) { waveOffset += parseFloat(waveSpeed.value); if (waveOffset > 60) waveOffset = 0; } const band = isoBands[freqSelect.value]; let activeHAngle = isHornRotated ? band.vAngle : band.hAngle, activeVAngle = isHornRotated ? band.hAngle : band.vAngle; bandReadout.innerHTML = `<div class="data-row"><span>Active H-Beamwidth:</span><span class="data-val">${activeHAngle}°</span></div><div class="data-row"><span>Active V-Beamwidth:</span><span class="data-val">${activeVAngle}°</span></div><div class="data-row"><span>Relative Band Atten:</span><span class="data-val">${band.attenuation} dB</span></div><div style="margin-top:8px; font-style:italic; color:#888; font-size:11px; line-height:1.3;">${band.char}</div>`; drawAcousticSpace(hCtx, hCanvas, activeHAngle, band.attenuation); drawAcousticSpace(vCtx, vCanvas, activeVAngle, band.attenuation); requestAnimationFrame(renderEngineFrame); }
+function drawAcousticSpace(ctx, canvas, targetAngle, systemAttenuation) { const w = canvas.width, h = canvas.height; ctx.clearRect(0, 0, w, h); const cx = w / 2, cy = h - 60, spacingPixels = parseFloat(arraySpacing.value) * 60; ctx.strokeStyle = "#161616"; ctx.lineWidth = 1; for (let r = 40; r <= 400; r += 40) { ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI, 0); ctx.stroke(); } const sources = currentMode === "single" ? [{ x: cx, y: cy }] : [{ x: cx - spacingPixels / 2, y: cy }, { x: cx + spacingPixels / 2, y: cy }]; sources.forEach(src => { ctx.save(); ctx.strokeStyle = "rgba(255,255,255,0.04)"; ctx.lineWidth = 2; for (let r = waveOffset; r < 360; r += 40) { if (r <= 0) continue; ctx.beginPath(); if (targetAngle >= 360) ctx.arc(src.x, src.y, r, Math.PI, 0); else { const startRad = (-90 - targetAngle / 1.3) * Math.PI / 180, endRad = (-90 + targetAngle / 1.3) * Math.PI / 180; ctx.arc(src.x, src.y, r, startRad, endRad); } ctx.stroke(); } ctx.restore(); }); const systemScale = Math.pow(10, systemAttenuation / 20), baseRadius = 240 * systemScale; const isobarLevels = [{ db: 0, color: "rgba(255,51,0,0.4)", stroke: "#ff3300" }, { db: -3, color: "rgba(255,170,0,0.28)", stroke: "#ffaa00" }, { db: -6, color: "rgba(0,170,0,0.15)", stroke: "#00aa00" }, { db: -12, color: "rgba(0,68,204,0.08)", stroke: "#0044cc" }]; isobarLevels.reverse().forEach(level => { ctx.beginPath(); for (let a = -180; a <= 0; a++) { const angleRad = a * Math.PI / 180, angleFromCenterDeg = Math.abs(a + 90); let combinedRadius = 0; sources.forEach(() => { const atten = getAttenuationAtAngle(angleFromCenterDeg, targetAngle), finalDb = level.db + atten, amplitude = Math.pow(10, finalDb / 20); combinedRadius += (baseRadius / sources.length) * amplitude; }); if (currentMode === "array" && targetAngle < 360) { const currentFreq = isoBands[freqSelect.value].freq, wavelength = 343 / currentFreq, pathDiff = Math.abs(Math.sin(angleRad) * parseFloat(arraySpacing.value)), phaseDiff = (2 * Math.PI * pathDiff) / wavelength, interferenceFactor = Math.abs(Math.cos(phaseDiff / 2)), damping = currentFreq > 4000 ? 0.4 : 0.95; combinedRadius *= (1 - damping) + (interferenceFactor * damping); } const dx = cx + Math.cos(angleRad) * combinedRadius, dy = cy + Math.sin(angleRad) * combinedRadius; if (a === -180) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy); } ctx.lineTo(cx, cy); ctx.closePath(); ctx.fillStyle = level.color; ctx.fill(); ctx.strokeStyle = level.stroke; ctx.lineWidth = currentMode === "array" ? 1 : 1.5; ctx.stroke(); }); sources.forEach(src => { ctx.fillStyle = "#222"; ctx.strokeStyle = "#666"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.rect(src.x - 15, src.y - 8, 30, 16); ctx.fill(); ctx.stroke(); ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--accent-color").trim(); ctx.beginPath(); ctx.moveTo(src.x - 6, src.y - 8); ctx.lineTo(src.x + 6, src.y - 8); ctx.stroke(); }); }
+renderEngineFrame();
 </script>
 </body>
 </html>
